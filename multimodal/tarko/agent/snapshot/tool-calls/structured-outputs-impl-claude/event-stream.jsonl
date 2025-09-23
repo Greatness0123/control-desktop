@@ -1,0 +1,138 @@
+[
+  {
+    "id": "8edd9b65-d0c0-4019-9aa5-a6fcd326ea27",
+    "type": "user_message",
+    "timestamp": 1757568733513,
+    "content": "How's the weather today?"
+  },
+  {
+    "id": "56bd33a3-08e1-409c-9d67-8e3a5c15ce1a",
+    "type": "agent_run_start",
+    "timestamp": 1757568733513,
+    "sessionId": "1757568733513-klc1qvt",
+    "runOptions": {
+      "input": "How's the weather today?"
+    },
+    "provider": "azure-openai",
+    "model": "aws_sdk_claude37_sonnet",
+    "agentName": "Anonymous"
+  },
+  {
+    "id": "677bf3db-dc74-4bc5-bf77-9fda00ee6b13",
+    "type": "assistant_message",
+    "timestamp": 1757568733514,
+    "content": "I'll check the weather for you. First, I need to determine your location.",
+    "rawContent": "I'll check the weather for you. First, I need to determine your location.",
+    "toolCalls": [
+      {
+        "id": "call_1757568733514_0k32i",
+        "type": "function",
+        "function": {
+          "name": "getCurrentLocation",
+          "arguments": "{}"
+        }
+      }
+    ],
+    "finishReason": "tool_calls",
+    "messageId": "msg_1757568733514_bgc1jhsq"
+  },
+  {
+    "id": "e0fba972-93d5-425a-b0b8-67df4fc20cef",
+    "type": "tool_call",
+    "timestamp": 1757568733515,
+    "toolCallId": "call_1757568733514_0k32i",
+    "name": "getCurrentLocation",
+    "arguments": {},
+    "startTime": 1757568733515,
+    "tool": {
+      "name": "getCurrentLocation",
+      "description": "Get user's current location",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  },
+  {
+    "id": "6ebec1f8-952a-43d1-b52a-df2c2a7adad2",
+    "type": "tool_result",
+    "timestamp": 1757568733515,
+    "toolCallId": "call_1757568733514_0k32i",
+    "name": "getCurrentLocation",
+    "content": {
+      "location": "Boston"
+    },
+    "elapsedMs": 0
+  },
+  {
+    "id": "4b537173-540b-49a6-9254-ed5d004908d4",
+    "type": "assistant_message",
+    "timestamp": 1757568733516,
+    "content": "I'll check the current weather in Boston for you.",
+    "rawContent": "I'll check the current weather in Boston for you.",
+    "toolCalls": [
+      {
+        "id": "call_1757568733516_p0t64",
+        "type": "function",
+        "function": {
+          "name": "getWeather",
+          "arguments": "{\"location\":\"Boston\"}"
+        }
+      }
+    ],
+    "finishReason": "tool_calls",
+    "messageId": "msg_1757568733516_q8n8yrw6"
+  },
+  {
+    "id": "aea74783-e184-471e-931e-fc552af8da96",
+    "type": "tool_call",
+    "timestamp": 1757568733517,
+    "toolCallId": "call_1757568733516_p0t64",
+    "name": "getWeather",
+    "arguments": {
+      "location": "Boston"
+    },
+    "startTime": 1757568733517,
+    "tool": {
+      "name": "getWeather",
+      "description": "Get weather information for a specified location",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "Location name, such as city name"
+          }
+        },
+        "required": [
+          "location"
+        ]
+      }
+    }
+  },
+  {
+    "id": "06cd4c30-c88b-4345-bd4d-e3b21302a4f1",
+    "type": "tool_result",
+    "timestamp": 1757568733517,
+    "toolCallId": "call_1757568733516_p0t64",
+    "name": "getWeather",
+    "content": {
+      "location": "Boston",
+      "temperature": "70°F (21°C)",
+      "condition": "Sunny",
+      "precipitation": "10%",
+      "humidity": "45%",
+      "wind": "5 mph"
+    },
+    "elapsedMs": 0
+  },
+  {
+    "id": "5119684a-4fe2-4bb4-9cea-79cff27336e6",
+    "type": "assistant_message",
+    "timestamp": 1757568733519,
+    "content": "Today in Boston, it's 70°F (21°C) and sunny with only a 10% chance of precipitation. The humidity is at 45% with light winds at 5 mph. It's a beautiful day!",
+    "rawContent": "Today in Boston, it's 70°F (21°C) and sunny with only a 10% chance of precipitation. The humidity is at 45% with light winds at 5 mph. It's a beautiful day!",
+    "finishReason": "stop",
+    "messageId": "msg_1757568733518_r27dnfsq"
+  }
+]

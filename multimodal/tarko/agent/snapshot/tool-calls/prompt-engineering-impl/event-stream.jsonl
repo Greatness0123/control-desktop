@@ -1,0 +1,138 @@
+[
+  {
+    "id": "dbbeabc4-cffb-46f5-b3cf-f968857f5366",
+    "type": "user_message",
+    "timestamp": 1757568733474,
+    "content": "How's the weather today?"
+  },
+  {
+    "id": "e2b166c5-0783-4528-84e4-560775773cb0",
+    "type": "agent_run_start",
+    "timestamp": 1757568733474,
+    "sessionId": "1757568733474-7f8wb2k",
+    "runOptions": {
+      "input": "How's the weather today?"
+    },
+    "provider": "volcengine",
+    "model": "ep-20250510145437-5sxhs",
+    "agentName": "Anonymous"
+  },
+  {
+    "id": "e6702ae0-835d-4039-b8fe-11653d8a1a63",
+    "type": "assistant_message",
+    "timestamp": 1757568733478,
+    "content": "",
+    "rawContent": "<tool_call>\n{\n  \"name\": \"getCurrentLocation\",\n  \"parameters\": {}\n}\n</tool_call>",
+    "toolCalls": [
+      {
+        "id": "call_1757568733477_ldvl0ybzb",
+        "type": "function",
+        "function": {
+          "name": "getCurrentLocation",
+          "arguments": "{}"
+        }
+      }
+    ],
+    "finishReason": "tool_calls",
+    "messageId": "msg_1757568733475_y762xy67"
+  },
+  {
+    "id": "5bee99f5-35da-4815-992a-1135dbf61bef",
+    "type": "tool_call",
+    "timestamp": 1757568733478,
+    "toolCallId": "call_1757568733477_ldvl0ybzb",
+    "name": "getCurrentLocation",
+    "arguments": {},
+    "startTime": 1757568733478,
+    "tool": {
+      "name": "getCurrentLocation",
+      "description": "Get user's current location",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  },
+  {
+    "id": "af67225e-6d9a-4b98-b702-6e6818f323df",
+    "type": "tool_result",
+    "timestamp": 1757568733478,
+    "toolCallId": "call_1757568733477_ldvl0ybzb",
+    "name": "getCurrentLocation",
+    "content": {
+      "location": "Boston"
+    },
+    "elapsedMs": 0
+  },
+  {
+    "id": "fcfc88da-a649-4ea1-98fc-a26420e0cb28",
+    "type": "assistant_message",
+    "timestamp": 1757568733480,
+    "content": "",
+    "rawContent": "<tool_call>\n{\n  \"name\": \"getWeather\",\n  \"parameters\": {\n    \"location\": \"Boston\"\n  }\n}\n</tool_call>",
+    "toolCalls": [
+      {
+        "id": "call_1757568733480_mfo1ydkjp",
+        "type": "function",
+        "function": {
+          "name": "getWeather",
+          "arguments": "{\"location\":\"Boston\"}"
+        }
+      }
+    ],
+    "finishReason": "tool_calls",
+    "messageId": "msg_1757568733479_8nrqzpnj"
+  },
+  {
+    "id": "deedd212-c6d8-4c06-98a7-f23b81ff46d4",
+    "type": "tool_call",
+    "timestamp": 1757568733481,
+    "toolCallId": "call_1757568733480_mfo1ydkjp",
+    "name": "getWeather",
+    "arguments": {
+      "location": "Boston"
+    },
+    "startTime": 1757568733481,
+    "tool": {
+      "name": "getWeather",
+      "description": "Get weather information for a specified location",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "Location name, such as city name"
+          }
+        },
+        "required": [
+          "location"
+        ]
+      }
+    }
+  },
+  {
+    "id": "a79a8513-cea9-49f0-b742-011550aed1f8",
+    "type": "tool_result",
+    "timestamp": 1757568733481,
+    "toolCallId": "call_1757568733480_mfo1ydkjp",
+    "name": "getWeather",
+    "content": {
+      "location": "Boston",
+      "temperature": "70°F (21°C)",
+      "condition": "Sunny",
+      "precipitation": "10%",
+      "humidity": "45%",
+      "wind": "5 mph"
+    },
+    "elapsedMs": 0
+  },
+  {
+    "id": "6334857b-e805-4875-8304-044fdcb7c31c",
+    "type": "assistant_message",
+    "timestamp": 1757568733482,
+    "content": "In Boston today, the weather is sunny with a temperature of 70°F (21°C). The precipitation chance is 10%, humidity is 45%, and the wind speed is 5 mph.",
+    "rawContent": "In Boston today, the weather is sunny with a temperature of 70°F (21°C). The precipitation chance is 10%, humidity is 45%, and the wind speed is 5 mph.",
+    "finishReason": "stop",
+    "messageId": "msg_1757568733482_wp0sz1oa"
+  }
+]

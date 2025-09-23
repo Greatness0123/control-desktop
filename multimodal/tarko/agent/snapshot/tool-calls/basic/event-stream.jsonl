@@ -1,0 +1,139 @@
+[
+  {
+    "id": "b236d274-95ad-4b5f-b892-9257e91f32ef",
+    "type": "user_message",
+    "timestamp": 1757568733426,
+    "content": "How's the weather today?"
+  },
+  {
+    "id": "359c7a44-4ea8-48ca-8e44-9ed4faf638ee",
+    "type": "agent_run_start",
+    "timestamp": 1757568733426,
+    "sessionId": "1757568733425-aud0ihf",
+    "runOptions": {
+      "input": "How's the weather today?",
+      "toolCallEngine": "structured_outputs"
+    },
+    "provider": "volcengine",
+    "model": "ep-20250510145437-5sxhs",
+    "agentName": "Anonymous"
+  },
+  {
+    "id": "f0bbe8d0-30f0-404e-bbdf-62a62b8ba4c6",
+    "type": "assistant_message",
+    "timestamp": 1757568733448,
+    "content": "To get the weather, I first need your current location. Retrieving your location...",
+    "rawContent": "To get the weather, I first need your current location. Retrieving your location...",
+    "toolCalls": [
+      {
+        "id": "call_1757568733448_i7vk4",
+        "type": "function",
+        "function": {
+          "name": "getCurrentLocation",
+          "arguments": "{}"
+        }
+      }
+    ],
+    "finishReason": "tool_calls",
+    "messageId": "msg_1757568733444_7jewrlhp"
+  },
+  {
+    "id": "4f48c59d-ac99-4e39-bcdf-b92e670011e4",
+    "type": "tool_call",
+    "timestamp": 1757568733449,
+    "toolCallId": "call_1757568733448_i7vk4",
+    "name": "getCurrentLocation",
+    "arguments": {},
+    "startTime": 1757568733449,
+    "tool": {
+      "name": "getCurrentLocation",
+      "description": "Get user's current location",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  },
+  {
+    "id": "38dd7820-7847-44ab-9cda-a7eebb104a67",
+    "type": "tool_result",
+    "timestamp": 1757568733449,
+    "toolCallId": "call_1757568733448_i7vk4",
+    "name": "getCurrentLocation",
+    "content": {
+      "location": "Boston"
+    },
+    "elapsedMs": 0
+  },
+  {
+    "id": "fa34b4c4-9c36-4a38-9ebd-06c77e4331d1",
+    "type": "assistant_message",
+    "timestamp": 1757568733454,
+    "content": "Fetching weather for Boston...",
+    "rawContent": "Fetching weather for Boston...",
+    "toolCalls": [
+      {
+        "id": "call_1757568733454_622rl",
+        "type": "function",
+        "function": {
+          "name": "getWeather",
+          "arguments": "{\"location\":\"Boston\"}"
+        }
+      }
+    ],
+    "finishReason": "tool_calls",
+    "messageId": "msg_1757568733452_cnbaakna"
+  },
+  {
+    "id": "02af6107-47f6-4c38-bed3-f3a874405fd4",
+    "type": "tool_call",
+    "timestamp": 1757568733455,
+    "toolCallId": "call_1757568733454_622rl",
+    "name": "getWeather",
+    "arguments": {
+      "location": "Boston"
+    },
+    "startTime": 1757568733455,
+    "tool": {
+      "name": "getWeather",
+      "description": "Get weather information for a specified location",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "Location name, such as city name"
+          }
+        },
+        "required": [
+          "location"
+        ]
+      }
+    }
+  },
+  {
+    "id": "48bf2538-a190-407f-86d7-4a1a69c702ab",
+    "type": "tool_result",
+    "timestamp": 1757568733455,
+    "toolCallId": "call_1757568733454_622rl",
+    "name": "getWeather",
+    "content": {
+      "location": "Boston",
+      "temperature": "70°F (21°C)",
+      "condition": "Sunny",
+      "precipitation": "10%",
+      "humidity": "45%",
+      "wind": "5 mph"
+    },
+    "elapsedMs": 0
+  },
+  {
+    "id": "459c1681-2dd8-4713-8e57-e1e21a391efc",
+    "type": "assistant_message",
+    "timestamp": 1757568733460,
+    "content": "Today in Boston, the weather is Sunny with a temperature of 70°F (21°C). Precipitation is 10%, humidity is 45%, and wind speed is 5 mph.",
+    "rawContent": "Today in Boston, the weather is Sunny with a temperature of 70°F (21°C). Precipitation is 10%, humidity is 45%, and wind speed is 5 mph.",
+    "finishReason": "stop",
+    "messageId": "msg_1757568733456_auwdohi1"
+  }
+]
