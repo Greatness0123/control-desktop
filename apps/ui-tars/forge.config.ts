@@ -152,7 +152,7 @@ console.log('ignorePattern', ignorePattern);
 
 const config: ForgeConfig = {
   packagerConfig: {
-    name: 'UI TARS',
+    name: 'Control ',
     icon: 'resources/icon',
     extraResource: ['./resources/app-update.yml'],
     asar: {
