@@ -20,12 +20,13 @@ import { Button } from '@renderer/components/ui/button';
 // import { useScreenRecord } from '@renderer/hooks/useScreenRecord';
 import { api } from '@renderer/api';
 
-import { Play, Send, Square, Loader2 } from 'lucide-react';
+import { Play, Send, Square, Loader2, Paperclip } from 'lucide-react';
 import { Textarea } from '@renderer/components/ui/textarea';
 import { useSession } from '@renderer/hooks/useSession';
 
 import { Operator } from '@main/store/types';
 import { useSetting } from '../../hooks/useSetting';
+import FileAttachmentDialog from './FileAttachmentDialog';
 
 const ChatInput = ({
   operator,
@@ -50,6 +51,8 @@ const ChatInput = ({
   const { settings, updateSetting } = useSetting();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const running = status === StatusEnum.RUNNING;
+  const [isFileDialogOpen, setIsFileDialogOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -116,12 +119,49 @@ const ChatInput = ({
       meta: {
         ...session!.meta,
         ...(restUserData || {}),
+        // Include file info in session meta if file is selected
+        ...(selectedFile ? {
+          attachedFile: {
+            name: selectedFile.name,
+            type: selectedFile.type,
+            size: selectedFile.size
+          }
+        } : {}),
       },
     });
 
-    run(instructions, history, () => {
-      setLocalInstructions('');
-    });
+    // If a file is selected, include file info in the instructions
+    if (selectedFile) {
+      // Convert file to base64 or appropriate format for sending
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const fileData = e.target?.result;
+        
+        // Create enhanced instructions string that includes file information and data
+        const instructionsWithFile = `${instructions}\n\n[File attached: ${selectedFile.name} (${selectedFile.type})]\n[File data: ${fileData}]`;
+        
+        // Store file data in session meta for potential backend use
+        const updatedSession = await getSession(sessionId);
+        await updateSession(sessionId, {
+          ...updatedSession,
+          meta: {
+            ...updatedSession!.meta,
+            fileData: fileData, // Store the actual file data
+          },
+        });
+        
+        run(instructionsWithFile, history, () => {
+          setLocalInstructions('');
+          setSelectedFile(null);
+        });
+      };
+      reader.readAsDataURL(selectedFile);
+    } else {
+      // Regular run without file
+      run(instructions, history, () => {
+        setLocalInstructions('');
+      });
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -155,6 +195,11 @@ const ChatInput = ({
       setLocalInstructions('');
     });
     await api.clearHistory();
+  };
+
+  const handleFileSelected = (file: File) => {
+    setSelectedFile(file);
+    setIsFileDialogOpen(false);
   };
 
   const renderButton = () => {
@@ -233,10 +278,39 @@ const ChatInput = ({
             {running && (
               <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
             )}
+            {/* File attachment button */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-8 w-8"
+                    onClick={() => setIsFileDialogOpen(true)}
+                    disabled={running || disabled}
+                  >
+                    <Paperclip className="h-4 w-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Attach a file</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            {selectedFile && (
+              <div className="text-xs text-muted-foreground">
+                {selectedFile.name}
+              </div>
+            )}
             {renderButton()}
           </div>
         </div>
       </div>
+      <FileAttachmentDialog 
+        isOpen={isFileDialogOpen} 
+        onClose={() => setIsFileDialogOpen(false)}
+        onFileSelected={handleFileSelected}
+      />
     </div>
   );
 };

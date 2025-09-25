@@ -73,7 +73,13 @@ const RunMessages = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      containerRef.current?.scrollIntoView(false);
+      // Fix: Check if containerRef.current exists and use proper scrollIntoView syntax
+      if (containerRef.current) {
+        containerRef.current.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'end' 
+        });
+      }
     }, 100);
   }, [messages, thinking, errorMsg]);
 

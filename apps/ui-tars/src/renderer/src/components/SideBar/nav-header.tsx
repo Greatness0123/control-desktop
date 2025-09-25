@@ -26,7 +26,7 @@ export function UITarsHeader({ showTrigger }: HeaderProps) {
         </div>
         <div className="grid flex-1 text-left text-sm leading-tight">
           <span className="truncate font-semibold">Control</span>
-          <span className="truncate text-xs pb-[1px]">Playground</span>
+          {/* <span className="truncate text-xs pb-[1px]">Playground</span> */}
         </div>
       </SidebarMenuButton>
       {showTrigger && (

@@ -211,7 +211,7 @@ const Home = () => {
             <CardHeader className="px-5">
               <CardTitle>Computer Operator</CardTitle>
               <CardDescription>
-                Use the Control to automate and complete tasks directly on
+                Use Control to automate and complete tasks directly on
                 your computer with AI assistance.
               </CardDescription>
             </CardHeader>
@@ -229,7 +229,7 @@ const Home = () => {
                 onClick={() => handleLocalPress(Operator.LocalComputer)}
                 className="w-full"
               >
-                Use Local Computer
+                Control Computer
               </Button>
             </CardFooter>
           </Card>
@@ -237,7 +237,7 @@ const Home = () => {
             <CardHeader className="px-5">
               <CardTitle>Browser Operator</CardTitle>
               <CardDescription>
-                Let the Control help you automate browser tasks, from
+                Let Control help you automate browser tasks, from
                 navigating pages to filling out forms.
               </CardDescription>
             </CardHeader>
@@ -255,7 +255,7 @@ const Home = () => {
                 onClick={() => handleLocalPress(Operator.LocalBrowser)}
                 className="w-full"
               >
-                Use Local Browser
+                Use Browser
               </Button>
             </CardFooter>
           </Card>

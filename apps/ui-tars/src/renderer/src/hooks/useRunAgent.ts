@@ -61,6 +61,7 @@ export const useRunAgent = () => {
     value: string,
     history: ConversationWithSoM[],
     callback: () => void = () => {},
+    attachments?: { file?: { name: string; type: string; data: any } },
   ) => {
     const operator = settings.operator;
     if (
@@ -80,10 +81,22 @@ export const useRunAgent = () => {
       return;
     }
 
+    // Create enhanced instructions that include file data if present
+    let enhancedInstructions = value;
+    if (attachments?.file) {
+      enhancedInstructions = `${value}
+
+[ATTACHED FILE]
+File Name: ${attachments.file.name}
+File Type: ${attachments.file.type}
+File Content: ${attachments.file.data}
+[END ATTACHED FILE]`;
+    }
+
     const initialMessages: Conversation[] = [
       {
         from: 'human',
-        value,
+        value: enhancedInstructions,
         timing: { start: Date.now(), end: Date.now(), cost: 0 },
       },
     ];
@@ -95,7 +108,7 @@ export const useRunAgent = () => {
     // console.log('sessionHistory', sessionHistory);
 
     await Promise.all([
-      api.setInstructions({ instructions: value }),
+      api.setInstructions({ instructions: enhancedInstructions }),
       api.setMessages({ messages: [...currentMessages, ...initialMessages] }),
       api.setSessionHistoryMessages({
         messages: sessionHistory,

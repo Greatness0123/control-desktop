@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { useState } from 'react';
-import { AlertCircle, Camera, ChevronDown, Loader2 } from 'lucide-react';
+import { AlertCircle, Camera, ChevronDown, Loader2, ChevronUp } from 'lucide-react';
 import { ErrorStatusEnum } from '@ui-tars/shared/types';
 
 import { Button } from '@renderer/components/ui/button';
@@ -14,19 +14,113 @@ import {
 } from '@renderer/components/ui/alert';
 import { Markdown } from '../markdown';
 
+// Configuration for message truncation
+const MESSAGE_CONFIG = {
+  MAX_CHARS: 500, // Maximum characters to show before truncating
+  MAX_LINES: 6,   // Maximum lines to show before truncating
+};
+
+const truncateText = (text: string, maxChars: number) => {
+  if (text.length <= maxChars) return text;
+  
+  // Find the last space before the max character limit to avoid cutting words
+  const truncateIndex = text.lastIndexOf(' ', maxChars);
+  const cutIndex = truncateIndex > 0 ? truncateIndex : maxChars;
+  
+  return text.slice(0, cutIndex);
+};
+
+const shouldTruncateMessage = (text: string) => {
+  const charCount = text.length;
+  const lineCount = text.split('\n').length;
+  
+  return charCount > MESSAGE_CONFIG.MAX_CHARS || lineCount > MESSAGE_CONFIG.MAX_LINES;
+};
+
 export const HumanTextMessage = ({ text }: { text: string }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const shouldTruncate = shouldTruncateMessage(text);
+  
+  const displayText = shouldTruncate && !isExpanded 
+    ? truncateText(text, MESSAGE_CONFIG.MAX_CHARS)
+    : text;
+  
   return (
-    <div className="flex gap-2 my-4 ml-4 items-center">
-      <div className="ml-auto p-3 rounded-md bg-secondary">{text}</div>
+    <div className="flex gap-2 my-4 ml-4 items-start">
+      <div className="ml-auto p-3 rounded-md bg-secondary max-w-[80%] relative">
+        <div className="break-words whitespace-pre-wrap">
+          {displayText}
+          {shouldTruncate && !isExpanded && (
+            <span className="text-muted-foreground">...</span>
+          )}
+        </div>
+        
+        {shouldTruncate && (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="mt-2 h-6 px-2 text-xs hover:bg-secondary-foreground/10"
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            {isExpanded ? (
+              <>
+                <ChevronUp className="w-3 h-3 mr-1" />
+                Show Less
+              </>
+            ) : (
+              <>
+                <ChevronDown className="w-3 h-3 mr-1" />
+                Show More
+              </>
+            )}
+          </Button>
+        )}
+      </div>
     </div>
   );
 };
 
 export const AssistantTextMessage = ({ text }: { text: string }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const cleanedText = text.replace(/\\n/g, '\n');
+  const shouldTruncate = shouldTruncateMessage(cleanedText);
+  
+  const displayText = shouldTruncate && !isExpanded 
+    ? truncateText(cleanedText, MESSAGE_CONFIG.MAX_CHARS)
+    : cleanedText;
+  
   return (
-    <div className="flex gap-2 mb-4 items-center">
-      <div className="mr-auto px-3 pt-3 pb-1 rounded-md bg-sky-100">
-        <Markdown>{text.replace(/\\n/g, '\n')}</Markdown>
+    <div className="flex gap-2 mb-4 items-start">
+      <div className="mr-auto px-3 pt-3 pb-1 rounded-md bg-sky-100 max-w-[80%] relative">
+        <div className="break-words">
+          <Markdown>
+            {shouldTruncate && !isExpanded 
+              ? `${displayText}...` 
+              : displayText
+            }
+          </Markdown>
+        </div>
+        
+        {shouldTruncate && (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="mt-2 mb-2 h-6 px-2 text-xs hover:bg-sky-200/50"
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            {isExpanded ? (
+              <>
+                <ChevronUp className="w-3 h-3 mr-1" />
+                Show Less
+              </>
+            ) : (
+              <>
+                <ChevronDown className="w-3 h-3 mr-1" />
+                Show More
+              </>
+            )}
+          </Button>
+        )}
       </div>
     </div>
   );
