@@ -15,7 +15,8 @@ import {
   DialogFooter,
 } from '@renderer/components/ui/dialog';
 import { Button } from '@renderer/components/ui/button';
-import { FileImage, FileText } from 'lucide-react';
+import { FileImage} from 'lucide-react';
+// import { FileImage, FileText } from 'lucide-react';
 
 interface FileAttachmentDialogProps {
   isOpen: boolean;
@@ -29,7 +30,7 @@ const FileAttachmentDialog: React.FC<FileAttachmentDialogProps> = ({
   onFileSelected,
 }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  // const fileInputRef = useRef<HTMLInputElement>(null);
   const photoInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
