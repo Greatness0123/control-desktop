@@ -34,7 +34,7 @@
     "depcheck": "^1.4.7",
     "electron-playwright-helpers": "^1.7.1",
     "eslint": "^8.57.0",
-    "eslint-plugin-import": "^2.25.0",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-react": "^7.34.3",
     "husky": "^9.1.7",
     "opencommit": "^3.2.5",
@@ -46,5 +46,18 @@
   },
   "engines": {
     "node": ">=20.x"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.29.7",
+    "@commitlint/cli": "^20.0.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@electron-toolkit/eslint-config-ts": "^3.1.0",
+    "@electron-toolkit/preload": "^3.0.2",
+    "@playwright/test": "^1.55.1",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.1",
+    "lint-staged": "^16.2.3",
+    "rimraf": "^6.0.1",
+    "sass-embedded": "^1.83.4",
+    "secretlint": "^11.2.4"
   }
 }

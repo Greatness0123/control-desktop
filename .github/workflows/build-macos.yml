@@ -13,7 +13,7 @@ jobs:
     steps:
       # 1. Checkout your code
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # 2. Install Node.js
       - name: Set up Node
@@ -35,7 +35,7 @@ jobs:
 
       # 6. Upload the DMG as an artifact
       - name: Upload DMG artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macOS-dmg
           path: out/make/**/*.dmg
