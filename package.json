@@ -33,16 +33,17 @@
     "cross-env": "^7.0.3",
     "depcheck": "^1.4.7",
     "electron-playwright-helpers": "^1.7.1",
-    "eslint": "^8.57.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-react": "^7.34.3",
+    "eslint": "^9.0.0",
     "husky": "^9.1.7",
     "opencommit": "^3.2.5",
     "prettier": "^3.3.2",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
     "turbo": "^2.4.4",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "@electron-toolkit/eslint-config-ts": "^3.1.0"
   },
   "engines": {
     "node": ">=20.x"
