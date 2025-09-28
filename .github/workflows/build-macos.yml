@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch: # lets you run it manually too
+  workflow_dispatch: # Allow manual trigger
 
 jobs:
   build-macos:
@@ -12,34 +12,36 @@ jobs:
 
     steps:
       # 1. Checkout your code
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Install Node.js
-      - name: Set up Node
-        uses: actions/setup-node@v3
+      # 2. Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
-      
-      
-      - name: Install pnpm
-        run: npm install -g pnpm    
+          node-version: 20
 
-      # 3. Install dependencies
-      - name: Install dependencies
+      # 3. Install pnpm globally
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # 4. Install dependencies (root-level if needed)
+      - name: Install root dependencies
         run: pnpm install
 
-      # 4. Build the app
-      - name: Build macOS app
-        run: pnpm run build
+      # 5. Move into Electron app directory
+      - name: Change directory to Electron app
+        working-directory: apps/ui-tars
+        run: |
+          # 6. Install dependencies inside the app (optional if already installed at root)
+          pnpm install
 
-      # 5. Package the DMG
-      - name: Package DMG
-        run: npx electron-forge make --platform=darwin --arch=x64
+          # 7. Build frontend + Electron app
+          npm run build && npx electron-forge make --platform=darwin --arch=x64
 
-      # 6. Upload the DMG as an artifact
+      # 8. Upload the DMG as an artifact
       - name: Upload DMG artifact
         uses: actions/upload-artifact@v4
         with:
           name: macOS-dmg
-          path: out/make/**/*.dmg
+          path: apps/ui-tars/out/make/**/*.dmg
