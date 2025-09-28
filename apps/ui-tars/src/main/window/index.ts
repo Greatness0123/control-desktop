@@ -1,11 +1,6 @@
-/**
- * Copyright (c) 2025 Bytedance, Inc. and its affiliates.
- * SPDX-License-Identifier: Apache-2.0
- */
 import { BrowserWindow } from 'electron';
 
 import { logger } from '@main/logger';
-// import * as env from '@main/env';
 
 import { createWindow } from './createWindow';
 
@@ -13,7 +8,6 @@ let mainWindow: BrowserWindow | null = null;
 
 export function showInactive() {
   if (mainWindow) {
-    // eslint-disable-next-line no-unused-expressions
     mainWindow.showInactive();
   }
 }
@@ -34,11 +28,9 @@ export function createMainWindow() {
 
   mainWindow.on('close', (event) => {
     logger.info('mainWindow closed');
-    // Prevent the window from being destroyed
+
     event.preventDefault();
 
-    // Black screen on window close in fullscreen mode
-    // https://github.com/electron/electron/issues/20263#issuecomment-633179965
     if (mainWindow?.isFullScreen()) {
       mainWindow?.setFullScreen(false);
 

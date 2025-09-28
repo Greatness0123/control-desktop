@@ -1,12 +1,3 @@
-/**
- * Copyright (c) 2025 Bytedance, Inc. and its affiliates.
- * SPDX-License-Identifier: Apache-2.0
- *
- * Portions Copyright 2024-present Bytedance, Inc. All rights reserved.
- * Use of this source code is governed by a MIT license that can be
- * found in https://github.com/web-infra-dev/midscene/blob/main/LICENSE
- *
- */
 import { BrowserWindow, screen, app } from 'electron';
 
 import { PredictionParsed, Conversation } from '@ui-tars/shared/types';
@@ -157,7 +148,7 @@ class ScreenMarker {
       focusable: false,
       resizable: false,
       type: 'toolbar',
-      visualEffectState: 'active', // macOS only
+      visualEffectState: 'active',
       webPreferences: {
         preload: path.join(__dirname, '../preload/index.js'),
         sandbox: false,
@@ -166,7 +157,7 @@ class ScreenMarker {
     });
 
     this.widgetWindow.setFocusable(false);
-    this.widgetWindow.setContentProtection(true); // not show for vlm model
+    this.widgetWindow.setContentProtection(true);
     this.widgetWindow.setPosition(
       Math.floor(screenWidth - 400 - 32),
       Math.floor(screenHeight - 400 - 32 - 64),
@@ -193,7 +184,6 @@ class ScreenMarker {
     windowManager.registerWindow(this.widgetWindow);
   }
 
-  // show Screen Marker in screen for prediction
   showPredictionMarker(
     predictions: PredictionParsed[],
     screenshotContext: NonNullable<Conversation['screenshotContext']>,
@@ -207,10 +197,8 @@ class ScreenMarker {
 
     const { scaleFactor = 1 } = screenshotContext;
 
-    // loop predictions
     for (let i = 0; i < overlays.length; i++) {
       const overlay = overlays[i];
-      // logger.info('[showPredictionMarker] prediction', overlay);
 
       try {
         this.closeOverlay();
@@ -229,7 +217,6 @@ class ScreenMarker {
           webPreferences: { nodeIntegration: true, contextIsolation: false },
           ...(overlay.xPos &&
             overlay.yPos && {
-              // logical pixels
               x: (overlay.xPos + overlay.offsetX) * scaleFactor,
               y: (overlay.yPos + overlay.offsetY) * scaleFactor,
             }),
@@ -237,21 +224,12 @@ class ScreenMarker {
 
         this.currentOverlay.blur();
         this.currentOverlay.setFocusable(false);
-        this.currentOverlay.setContentProtection(true); // not show for vlm model
+        this.currentOverlay.setContentProtection(true);
         this.currentOverlay.setIgnoreMouseEvents(true, { forward: true });
 
         if (env.isWindows) {
           this.currentOverlay.setAlwaysOnTop(true, 'screen-saver');
         }
-
-        // 在 Windows 上设置窗口为工具窗口
-        // if (process.platform === 'win32') {
-        //   this.currentOverlay.setWindowButtonVisibility(false);
-        //   const { SetWindowAttributes } = await import('windows-native-registry');
-        //   SetWindowAttributes(this.currentOverlay.getNativeWindowHandle(), {
-        //     toolWindow: true,
-        //   });
-        // }
 
         if (overlay.xPos && overlay.yPos) {
           this.lastShowPredictionMarkerPos = {
@@ -269,7 +247,6 @@ class ScreenMarker {
     </html>
     `);
 
-          // max 5s close overlay
           setTimeout(() => {
             this.closeOverlay();
           }, 5000);

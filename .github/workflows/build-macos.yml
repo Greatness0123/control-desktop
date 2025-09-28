@@ -1,0 +1,41 @@
+name: Build macOS DMG
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # lets you run it manually too
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      # 1. Checkout your code
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # 2. Install Node.js
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Build the app
+      - name: Build macOS app
+        run: npm run build
+
+      # 5. Package the DMG
+      - name: Package DMG
+        run: npx electron-forge make --platform=darwin --arch=x64
+
+      # 6. Upload the DMG as an artifact
+      - name: Upload DMG artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: macOS-dmg
+          path: out/make/**/*.dmg

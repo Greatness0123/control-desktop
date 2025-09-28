@@ -1,7 +1,3 @@
-/**
- * Copyright (c) 2025 Bytedance, Inc. and its affiliates.
- * SPDX-License-Identifier: Apache-2.0
- */
 import { Route, HashRouter, Routes } from 'react-router';
 import { lazy, Suspense } from 'react';
 import { Toaster } from 'sonner';
