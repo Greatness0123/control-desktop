@@ -5,7 +5,7 @@
 import { BrowserWindow } from 'electron';
 
 import { logger } from '@main/logger';
-import * as env from '@main/env';
+// import * as env from '@main/env';
 
 import { createWindow } from './createWindow';
 
@@ -34,22 +34,19 @@ export function createMainWindow() {
 
   mainWindow.on('close', (event) => {
     logger.info('mainWindow closed');
-    if (env.isMacOS) {
-      event.preventDefault();
+    // Prevent the window from being destroyed
+    event.preventDefault();
 
-      // Black screen on window close in fullscreen mode
-      // https://github.com/electron/electron/issues/20263#issuecomment-633179965
-      if (mainWindow?.isFullScreen()) {
-        mainWindow?.setFullScreen(false);
+    // Black screen on window close in fullscreen mode
+    // https://github.com/electron/electron/issues/20263#issuecomment-633179965
+    if (mainWindow?.isFullScreen()) {
+      mainWindow?.setFullScreen(false);
 
-        mainWindow?.once('leave-full-screen', () => {
-          mainWindow?.hide();
-        });
-      } else {
+      mainWindow?.once('leave-full-screen', () => {
         mainWindow?.hide();
-      }
+      });
     } else {
-      mainWindow = null;
+      mainWindow?.hide();
     }
   });
 

@@ -77,10 +77,10 @@ class ScreenMarker {
               pointer-events: none;
               z-index: 9999;
               background:
-                linear-gradient(to right, rgba(30, 144, 255, 0.4), transparent 50%) left,
-                linear-gradient(to left, rgba(30, 144, 255, 0.4), transparent 50%) right,
-                linear-gradient(to bottom, rgba(30, 144, 255, 0.4), transparent 50%) top,
-                linear-gradient(to top, rgba(30, 144, 255, 0.4), transparent 50%) bottom;
+                linear-gradient(to right, rgba(255, 255, 255, 0.4), transparent 50%) left,
+                linear-gradient(to left, rgba(255, 255, 255, 0.4), transparent 50%) right,
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent 50%) top,
+                linear-gradient(to top, rgba(255, 255, 255, 0.4), transparent 50%) bottom;
               background-repeat: no-repeat;
               background-size: 10% 100%, 10% 100%, 100% 10%, 100% 10%;
               animation: waterflow 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -90,34 +90,34 @@ class ScreenMarker {
             @keyframes waterflow {
               0%, 100% {
                 background-image:
-                  linear-gradient(to right, rgba(30, 144, 255, 0.4), transparent 50%),
-                  linear-gradient(to left, rgba(30, 144, 255, 0.4), transparent 50%),
-                  linear-gradient(to bottom, rgba(30, 144, 255, 0.4), transparent 50%),
-                  linear-gradient(to top, rgba(30, 144, 255, 0.4), transparent 50%);
+                  linear-gradient(to right, rgba(255, 255, 255, 0.4), transparent 50%),
+                  linear-gradient(to left, rgba(255, 255, 255, 0.4), transparent 50%),
+                  linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent 50%),
+                  linear-gradient(to top, rgba(255, 255, 255, 0.4), transparent 50%);
                 transform: scale(1);
               }
               25% {
                 background-image:
-                  linear-gradient(to right, rgba(30, 144, 255, 0.39), transparent 52%),
-                  linear-gradient(to left, rgba(30, 144, 255, 0.39), transparent 52%),
-                  linear-gradient(to bottom, rgba(30, 144, 255, 0.39), transparent 52%),
-                  linear-gradient(to top, rgba(30, 144, 255, 0.39), transparent 52%);
+                  linear-gradient(to right, rgba(255, 255, 255, 0.39), transparent 52%),
+                  linear-gradient(to left, rgba(255, 255, 255, 0.39), transparent 52%),
+                  linear-gradient(to bottom, rgba(255, 255, 255, 0.39), transparent 52%),
+                  linear-gradient(to top, rgba(255, 255, 255, 0.39), transparent 52%);
                 transform: scale(1.03);
               }
               50% {
                 background-image:
-                  linear-gradient(to right, rgba(30, 144, 255, 0.38), transparent 55%),
-                  linear-gradient(to left, rgba(30, 144, 255, 0.38), transparent 55%),
-                  linear-gradient(to bottom, rgba(30, 144, 255, 0.38), transparent 55%),
-                  linear-gradient(to top, rgba(30, 144, 255, 0.38), transparent 55%);
+                  linear-gradient(to right, rgba(255, 255, 255, 0.38), transparent 55%),
+                  linear-gradient(to left, rgba(255, 255, 255, 0.38), transparent 55%),
+                  linear-gradient(to bottom, rgba(255, 255, 255, 0.38), transparent 55%),
+                  linear-gradient(to top, rgba(255, 255, 255, 0.38), transparent 55%);
                 transform: scale(1.05);
               }
               75% {
                 background-image:
-                  linear-gradient(to right, rgba(30, 144, 255, 0.39), transparent 52%),
-                  linear-gradient(to left, rgba(30, 144, 255, 0.39), transparent 52%),
-                  linear-gradient(to bottom, rgba(30, 144, 255, 0.39), transparent 52%),
-                  linear-gradient(to top, rgba(30, 144, 255, 0.39), transparent 52%);
+                  linear-gradient(to right, rgba(255, 255, 255, 0.39), transparent 52%),
+                  linear-gradient(to left, rgba(255, 255, 255, 0.39), transparent 52%),
+                  linear-gradient(to bottom, rgba(255, 255, 255, 0.39), transparent 52%),
+                  linear-gradient(to top, rgba(255, 255, 255, 0.39), transparent 52%);
                 transform: scale(1.03);
               }
             }
